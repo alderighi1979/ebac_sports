@@ -1,30 +1,19 @@
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 import * as S from './styles'
 
-import { Produto } from '../../App'
+const Header = () => {
+  // Declarando a variável lendo os itens do reducer do carrinho:
+  const itens = useSelector((state: RootState) => state.carrinho.itens)
 
-import cesta from '../../assets/cesta.png'
-import { paraReal } from '../Produto'
-
-type Props = {
-  itensNoCarrinho: Produto[]
-  favoritos: Produto[]
-}
-
-const Header = ({ itensNoCarrinho, favoritos }: Props) => {
-  const valorTotal = itensNoCarrinho.reduce((acc, item) => {
-    acc += item.preco
-    return acc
-  }, 0)
+  // Ou declare exatamente com o nome 'itensNoCarrinho':
+  const itensNoCarrinho = itens.length
 
   return (
     <S.Header>
       <h1>EBAC Sports</h1>
       <div>
-        <span>{favoritos.length} favoritos</span>
-        <img src={cesta} />
-        <span>
-          {itensNoCarrinho.length} itens, valor total: {paraReal(valorTotal)}
-        </span>
+        <span>{itensNoCarrinho} itens no carrinho</span>
       </div>
     </S.Header>
   )
